@@ -18,6 +18,7 @@ public class SignInitialization {
     private static final String IC2_TAG = "ic2";
     private static final String TCONSTRUCT_TAG = "tconstruct";
     private static final String FACTORIZATION_TAG = "factorization";
+    private static final String GALACTICRAFTCORE_TAG = "GalacticraftCore";
 
     public static void addWoodMaterial(ArrayList<ItemStack> loadedPlanks) {
 
@@ -161,6 +162,7 @@ public class SignInitialization {
         Item tconstructItem = null;
         Item factorizationSilverItem = null;
         Item factorizationLeadItem = null;
+        Item galacticraftItem = null;
 
 
         for (ItemStack stacks : ingots) {
@@ -204,7 +206,16 @@ public class SignInitialization {
 
         //TODO add thermal expansion when updated
 
+        //Galacticraft
+        for (ItemStack stacks : ingots) {
+            if (stacks.getUnlocalizedName().equals("item.GalacticraftCore:basicItem")) {
+                galacticraftItem = stacks.copy().getItem();
+                break;
+            }
+        }
 
+        SignRegistry.register("aluminum_sign", null, "aluminum", "galacticraftcore/", true, new ItemStack(galacticraftItem, 1, 5), ModInfo.ID, GALACTICRAFTCORE_TAG).setMetal(true);
+        
         if (Loader.isModLoaded("IC2")) {
             SignRegistry.activateTag(IC2_TAG);
         }
@@ -215,6 +226,10 @@ public class SignInitialization {
 
         if (Loader.isModLoaded("factorization")) {
             SignRegistry.activateTag(FACTORIZATION_TAG);
+        }
+        
+        if (Loader.isModLoaded("GalacticraftCore")) {
+            SignRegistry.activateTag(GALACTICRAFTCORE_TAG);
         }
 
     }
